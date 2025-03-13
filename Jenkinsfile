@@ -35,4 +35,3 @@ pipeline {
         }
     }
 }
-change necessary details

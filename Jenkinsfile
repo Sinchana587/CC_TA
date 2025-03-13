@@ -1,39 +1,38 @@
 pipeline {
-    agent any 
-
+    agent any
     stages {
         stage('Clone repository') {
             steps {
                 checkout([$class: 'GitSCM',
                     branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/Sinchana587/CC_TA']]
-                ])
+                    userRemoteConfigs: [[url: 'https://github.com/Sinchana587/CC_TA']]])
             }
         }
         
         stage('Build') {
             steps {
-                sh 'g++ main/hello.cpp -o output'
-                sh 'chmod +x output'  // Ensure output is executable
+                build 'PES1UG22CS596-1'
+                sh 'g++ ./main/hello.cpp -o output'
             }
         }
 
         stage('Test') {
             steps {
-                sh './output'  // Run the compiled program
+                sh './output'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                echo 'deploy'
             }
         }
     }
 
     post {
         failure {
-            echo 'Pipeline failed'
+            error 'Pipeline failed'
         }
     }
 }
+change necessary details
